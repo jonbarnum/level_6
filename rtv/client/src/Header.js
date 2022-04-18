@@ -1,7 +1,9 @@
-import React from "react";
+import React, {useContext} from "react";
 import {Link} from 'react-router-dom'
+import { UserContext } from "./context/UserContext";
 
 function Header(){
+    const {logout} = useContext(UserContext)
     return(
         <div>
             <h1>
@@ -13,6 +15,7 @@ function Header(){
             <Link to='/public'>
                 Public
             </Link>
+            <button onClick={logout}>Logout</button>
         </div>
     )
 }

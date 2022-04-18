@@ -1,33 +1,35 @@
 import React from "react";
 
 
-function AuthForm(){
+function AuthForm(props){
+    const {
+        handleChange,
+        handleSubmit,
+        btnText,
+        inputs: {
+            username,
+            password
+        }
+    } = props
+
     return(
         <div>
-            <h2>Signup or Login RTV</h2>
-            <form>
-                <div>
-                    <div>
-                        <input 
-                            text='text'
-                            name="username"
-                            // value={}
-                            // onChange={}
-                            placeholder="Username"
-                        />
-                    </div>
-                    <div>
-                        <input 
-                            text='password'
-                            name="password"
-                            // value={}
-                            // onChange={}
-                            placeholder='Password'
-                        />
-                    </div>
-                    <button>Signup</button>
-                    <button>Login</button>
-                </div>
+            <form onSubmit={handleSubmit}>
+                <input 
+                    text='text'
+                    name="username"
+                    value={username}
+                    onChange={handleChange}
+                    placeholder="Username"
+                />
+                <input 
+                    text='password'
+                    name="password"
+                    value={password}
+                    onChange={handleChange}
+                    placeholder='Password'
+                />
+                <button>{btnText}</button>
             </form>
         </div>
     )
