@@ -14,7 +14,7 @@ function App(){
         <div>
             <Header logout={logout}/>
             <Routes>
-                {/* <Route path='/' render={() => token ? <Navigate to='/profile' /> : <Auth />} /> */}
+                <Route path='/' render={() => token ? <Navigate to='/profile' /> : <Auth />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/public" element={<Public />} />
             </Routes>
