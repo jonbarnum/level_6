@@ -30,7 +30,7 @@ function Auth(){
     return(
         <div>
             <h1>RTV</h1>
-            {! toggle ?
+            { !toggle ?
                 <>
                     <AuthForm 
                         handleChange={handleChange}

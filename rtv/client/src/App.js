@@ -14,9 +14,21 @@ function App(){
         <div>
             <Header logout={logout}/>
             <Routes>
-                <Route path='/' render={() => token ? <Navigate to='/profile' /> : <Auth />} />
-                <Route path="/profile" element={<Profile />} />
-                <Route path="/public" element={<Public />} />
+                <Route 
+                    path="/" 
+                    render={()=> token ? <Navigate to="/profile"/> : <Auth />}
+                    element={<Auth/>}
+                />
+                <Route 
+                    path="/profile"
+                    render={() => <Profile />}
+                    element={<Profile/>}
+                />
+                <Route 
+                    path="/public"
+                    render={() => <Public />}
+                    element={<Public/>}
+                />
             </Routes>
             <Footer />
         </div>
