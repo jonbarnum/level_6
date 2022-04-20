@@ -17,6 +17,7 @@ function UserContextProvider(props){
         token: localStorage.getItem("token") || '',
         comments: [],
         issues: [],
+        errMsg: ''
         // votes: null
     }
 
@@ -35,7 +36,7 @@ function UserContextProvider(props){
                 token
             }))
         })
-        .catch(error => console.log(error.response.data.errMsg))
+        .catch(error => handleAuthErr(error.response.data.errMsg))
     }
 
     function login(credentials){
@@ -51,7 +52,7 @@ function UserContextProvider(props){
                 token
             }))
         })
-        .catch(error => console.log(error.response.data.errMsg))
+        .catch(error => handleAuthErr(error.response.data.errMsg))
     }
 
     function logout(){
@@ -62,6 +63,20 @@ function UserContextProvider(props){
             token: "",
             comments: []
         })
+    }
+
+    function handleAuthErr(errMsg){
+        setUserState(prevState => ({
+            ...prevState,
+            errMsg
+        }))
+    }
+
+    function resetAuthErr(){
+        setUserState(prevState => ({
+            ...prevState,
+            errMsg: ''
+        }))
     }
 
     function getUserIssues(){
@@ -95,7 +110,8 @@ function UserContextProvider(props){
                 signup,
                 login,
                 logout,
-                addIssue
+                addIssue,
+                resetAuthErr
             }}
         >
             {props.children}

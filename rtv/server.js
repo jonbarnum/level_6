@@ -13,7 +13,10 @@ app.use(express.json())
 // mongoose.set('useCreateIndex', true)
 mongoose.connect(
     "mongodb://localhost:27017/test-db",
-    {useNewUrlParser: true, useUnifiedTopology: true},
+    {
+        useNewUrlParser: true, 
+        useUnifiedTopology: true,
+    },
     (error) => {
         if (error) throw error
         console.log('Connected to database')
@@ -34,5 +37,5 @@ app.use((error, req, res, next) => {
 })
 
 app.listen(PORT, () => {
-    console.log(`[+] Starting server on port ${PORT}`)
+    console.log(`Starting server on port ${PORT}`)
 })

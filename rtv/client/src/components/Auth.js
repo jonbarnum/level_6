@@ -6,7 +6,7 @@ const initialInputs = {username: '', password: ''}
 
 function Auth(){
     const [inputs, setInputs] = useState(initialInputs)
-    const {signup, login} = useContext(UserContext)
+    const {signup, login, errMsg, resetAuthErr} = useContext(UserContext)
     const [toggle, setToggle] = useState(false)
 
     function handleChange(event){
@@ -27,6 +27,11 @@ function Auth(){
             login(inputs)
         }
 
+        function toggleForm(){
+            setToggle(prev => !prev)
+            resetAuthErr()
+        }
+
     return(
         <div>
             <h1>RTV</h1>
@@ -37,8 +42,9 @@ function Auth(){
                         handleSubmit={handleSignups}
                         inputs={inputs}
                         btnText='Sign up'
+                        errMsg={errMsg}
                     />
-                    <p onClick={() => setToggle(prev => !prev)}>Already a member?</p>
+                    <p onClick={toggleForm}>Already a member?</p>
                 </>
             :
                 <>
@@ -47,8 +53,9 @@ function Auth(){
                         handleSubmit={handleLogin}
                         inputs={inputs}
                         btnText='Login'
+                        errMsg={errMsg}
                     />
-                    <p onClick={() => setToggle(prev => !prev)}>Not a Member</p>
+                    <p onClick={toggleForm}>Not a Member</p>
                 </>
             }
         </div>

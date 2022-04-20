@@ -1,17 +1,20 @@
-import React from "react";
+import React, {useContext} from "react";
 import {Link} from 'react-router-dom'
+import { UserContext } from "./context/UserContext";
 
 function Header(props){
     const { logout } = props
+    const {token} = useContext(UserContext)
+
     return(
         <div>
-            <Link to='/profile'>
+            { token && <Link to='/profile'>
                 Profile
-            </Link>
+            </Link>}
             <Link to='/public'>
                 Public
             </Link>
-            <button onClick={logout}>Logout</button>
+            { token && <button onClick={logout}>Logout</button>}
         </div>
     )
 }
