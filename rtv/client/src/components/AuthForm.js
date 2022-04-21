@@ -6,11 +6,11 @@ function AuthForm(props){
         handleChange,
         handleSubmit,
         btnText,
-        errMsg,
         inputs: {
             username,
             password
-        }
+        },
+        errMsg
     } = props
 
     return(
@@ -31,7 +31,7 @@ function AuthForm(props){
                     placeholder='Password'
                 />
                 <button>{btnText}</button>
-                <p>{errMsg}</p>
+                <p>{ errMsg }</p>
             </form>
         </div>
     )

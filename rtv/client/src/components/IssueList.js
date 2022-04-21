@@ -1,5 +1,5 @@
-import React from "react";
-import Issue from "./Issue";
+// import React, { useEffect } from "react";
+// import Issue from "./Issue";
 
 // function HandleEditForm(issue){
 //     const {initState} = useContext(UserContext)
@@ -27,8 +27,17 @@ import Issue from "./Issue";
 //     )
 // }
 
+import React, { useEffect, useContext } from "react";
+import Issue from "./Issue";
+import { UserContext } from "../context/UserContext";
+
 function IssueList(props){
     const {issues} = props
+    const {getUserIssues} = useContext(UserContext)
+    
+    useEffect(() => {
+        getUserIssues()
+    }, [])
 
     return(
         <div>

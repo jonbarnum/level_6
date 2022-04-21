@@ -36,7 +36,7 @@ function Auth(){
         <div>
             <h1>RTV</h1>
             { !toggle ?
-                <>
+                <React.Fragment>
                     <AuthForm 
                         handleChange={handleChange}
                         handleSubmit={handleSignups}
@@ -45,9 +45,9 @@ function Auth(){
                         errMsg={errMsg}
                     />
                     <p onClick={toggleForm}>Already a member?</p>
-                </>
+                </React.Fragment>
             :
-                <>
+                <React.Fragment>
                     <AuthForm 
                         handleChange={handleChange}
                         handleSubmit={handleLogin}
@@ -56,7 +56,7 @@ function Auth(){
                         errMsg={errMsg}
                     />
                     <p onClick={toggleForm}>Not a Member</p>
-                </>
+                </React.Fragment>
             }
         </div>
     )
