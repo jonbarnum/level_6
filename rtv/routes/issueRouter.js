@@ -13,7 +13,7 @@ issueRouter.get('/', (req, res, next) => {
     })
 })
 
-issueRouter.get('/user', (req, res, next) => {
+issueRouter.get('/:user', (req, res, next) => {
     Issue.find({user: req.user._id}, (error, issues) => {
         if (error){
             res.status(500)

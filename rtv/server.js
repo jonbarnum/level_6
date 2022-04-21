@@ -3,16 +3,15 @@ const app = express()
 require('dotenv').config()
 const morgan = require('morgan')
 const mongoose = require('mongoose')
-const PORT = process.env.PORT || 8000
+const PORT = process.env.PORT
 const expressJwt = require('express-jwt')
 
 
 app.use(morgan('dev'))
 app.use(express.json())
 
-// mongoose.set('useCreateIndex', true)
 mongoose.connect(
-    "mongodb://localhost:27017/test-db",
+    "mongodb://localhost:27017/rtv",
     {
         useNewUrlParser: true, 
         useUnifiedTopology: true,
@@ -25,7 +24,7 @@ mongoose.connect(
 
 app.use('/auth', require('./routes/authRouter.js'))
 app.use('/api', expressJwt({secret: process.env.SECRET, algorithms: ['HS256']}))
-app.use('/api/issue', require('./routes/issueRouter'))
+app.use('/api/issues', require('./routes/issueRouter'))
 app.use('/api/comment', require('./routes/commentRouter'))
 
 app.use((error, req, res, next) => {

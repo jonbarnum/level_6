@@ -1,7 +1,7 @@
 import React from "react";
 
 function Issue(props){
-    const {title, description, _id} = props
+    const {title, description} = props
     return(
         <div>
             <h1>{title}</h1>

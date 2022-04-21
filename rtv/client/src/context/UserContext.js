@@ -25,7 +25,7 @@ function UserContextProvider(props){
 
 
     function signup(credentials){
-        axios.post('/authForm/signup', credentials)
+        axios.post('/auth/signup', credentials)
         .then(response => {
             const {user, token} = response.data
             localStorage.setItem("token", token)
@@ -40,7 +40,7 @@ function UserContextProvider(props){
     }
 
     function login(credentials){
-        axios.post('auth/login', credentials)
+        axios.post('/auth/login', credentials)
         .then(response => {
             const {user, token} = response.data
             localStorage.setItem("token", token)
@@ -91,7 +91,7 @@ function UserContextProvider(props){
     }
 
     function addIssue(newIssue){
-        userAxios.post('/api/issue', newIssue)
+        userAxios.post('/api/issues', newIssue)
         .then(response => {
             setUserState(prevState => ({
                 ...prevState,
