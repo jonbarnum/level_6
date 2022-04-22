@@ -38,7 +38,6 @@
 // export default App
 
 import React from "react";
-// import Header from "./Header";
 import {Routes, Route, Navigate} from 'react-router-dom'
 import Profile from "./components/Profile";
 import Public from "./components/Public";
@@ -48,16 +47,15 @@ import { UserContext } from "./context/UserContext";
 import Auth from "./components/Auth";
 
 function App(){
-    const {token} = useContext(UserContext)
+    const {token, user} = useContext(UserContext)
     return(
         <div>
-            {/* <Header logout={logout}/> */}
             <Routes>
                 <Route 
                     path="/" 
                     element={
                         <React.Fragment>
-                            {token ? <Navigate to="/profile"/> : <Auth />}
+                            {token && user ? <Navigate to="/profile"/> : <Auth />}
                         </React.Fragment>
                     }
                 />

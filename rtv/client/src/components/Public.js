@@ -3,6 +3,7 @@ import {Link} from "react-router-dom"
 import { UserContext } from "../context/UserContext";
 import Issue from "./Issue";
 
+
 function Public(){
     const { token, getAllIssues, allIssues } = useContext(UserContext)
     useEffect(() => {

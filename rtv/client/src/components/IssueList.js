@@ -33,15 +33,17 @@ import { UserContext } from "../context/UserContext";
 
 function IssueList(props){
     const {issues} = props
+
     const {getUserIssues} = useContext(UserContext)
-    
+
+
     useEffect(() => {
         getUserIssues()
     }, [])
 
     return(
         <div>
-            {issues.map(issue => {
+            {issues && issues.map(issue => {
                 return (
                     <div>
                         <Issue {...issue} key={issue._id}/>
@@ -53,3 +55,41 @@ function IssueList(props){
 }
 
 export default IssueList
+
+// import React, { useEffect, useState } from "react";
+// import Issue from "./Issue";
+// // import { UserContext } from "../context/UserContext";
+// import axios from "axios";
+
+// const userAxios = axios.create()
+
+// function IssueList(props){
+//     const {issues} = props
+//     // const {getUserIssues} = useContext(UserContext)
+//     const [allIssues, setAllIssues] = useState([])
+
+//     useEffect(() => {
+//         function getAllIssues(){
+//             userAxios.get('/api/issues')
+//                 .then(response => {
+//                     setAllIssues(response.data)
+//                 })
+//                 .catch(error => console.log(error))
+//             }
+//             getAllIssues()
+//     }, [])
+
+//     return(
+//         <div>
+//             {issues.map(issue => {
+//                 return (
+//                     <div>
+//                         <Issue {...issue} key={issue._id}/>
+//                     </div>
+//                 )
+//             })}
+//         </div>
+//     )
+// }
+
+// export default IssueList

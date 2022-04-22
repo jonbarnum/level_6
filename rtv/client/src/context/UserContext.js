@@ -124,6 +124,7 @@
 
 import React, {useState} from "react";
 import axios from 'axios'
+import { useNavigate } from "react-router-dom";
 
 const UserContext = React.createContext()
 
@@ -147,6 +148,7 @@ function UserContextProvider(props){
 
     const [userState, setUserState] = useState(initState)
     const [allIssues, setAllIssues] = useState([])
+    let navigate = useNavigate()
 
 
 
@@ -171,11 +173,12 @@ function UserContextProvider(props){
             const {user, token} = response.data
             localStorage.setItem("token", token)
             localStorage.setItem("user", JSON.stringify(user))
-            getUserIssues()
+            const issues = getUserIssues()
             setUserState(prevUserState => ({
                 ...prevUserState,
                 user,
-                token
+                token,
+                issues
             }))
         })
         .catch(error => handleAuthErr(error.response.data.errMsg))
@@ -189,6 +192,7 @@ function UserContextProvider(props){
             token: "",
             comments: []
         })
+        navigate('/')
     }
 
     function handleAuthErr(errMsg){
