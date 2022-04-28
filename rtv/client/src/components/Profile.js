@@ -10,7 +10,6 @@ function Profile(){
             username
         },
         addIssue,
-        issues,
         logout
     } = useContext(UserContext)
 
@@ -21,7 +20,7 @@ function Profile(){
             <h3>Add an Issue</h3>
             <IssueForm addIssue={addIssue} />
             <h3>Your Issues</h3>
-            <IssueList issues={issues} />
+            <IssueList />
         </div>
     )
 }

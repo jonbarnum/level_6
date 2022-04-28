@@ -12,7 +12,15 @@ issueRouter.get('/', (req, res, next) => {
         return res.send(issues)
     })
 })
-
+// '/api/issues/:issueId?user=!EQuserId'
+// {
+//     filter: {
+//         user: {
+//             qualifier: 'equals'
+//             term: 'theid'
+//         }
+//     }
+// }
 issueRouter.get('/:user', (req, res, next) => {
     Issue.find({user: req.user._id}, (error, issues) => {
         if (error){
@@ -35,22 +43,24 @@ issueRouter.post('/', (req, res, next) => {
     })
 })
 
-issueRouter.get('/:issueId', (req, res, next) => {
-    Issue.findById(req.params.issueId, (error, issue) => {
-        if (error){
-            res.status(500)
-            return next(error)
-        } else if (!issue){
-            res.status(404)
-            return next(new Error('No political issue found'))
-        }
-        return res.send(issue)
-    })
-})
+// issueRouter.get('/:issueId', (req, res, next) => {
+//     Issue.findById(
+//         {_id: req.params.issueId}, 
+//         (error, issue) => {
+//         if (error){
+//             res.status(500)
+//             return next(error)
+//         } else if (!issue){
+//             res.status(404)
+//             return next(new Error('No political issue found'))
+//         }
+//         return res.send(issue)
+//     })
+// })
 
 issueRouter.put('/:issueId', (req, res, next) => {
     Issue.findOneAndUpdate(
-        {_id: req.params.issue, user: req.user._id},
+        {_id: req.params.issueId, user: req.user._id},
         req.body,
         {new: true},
         (error, updatedIssue) => {

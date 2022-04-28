@@ -6,6 +6,7 @@ import Issue from "./Issue";
 
 function Public(){
     const { token, getAllIssues, allIssues } = useContext(UserContext)
+    
     useEffect(() => {
         getAllIssues()
     }, [])
@@ -18,10 +19,10 @@ function Public(){
                     <button>Profile</button>
                 </Link>
             }
-            {allIssues.map(issues => {
+            {allIssues && allIssues.map(issues => {
                 return(
-                    <div>
-                        <Issue {...issues} key={issues._id}/>
+                    <div key={issues._id} id={issues._id}>
+                        <Issue {...issues} />
                     </div>
                 )
             })}

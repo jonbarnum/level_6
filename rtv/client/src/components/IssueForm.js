@@ -17,6 +17,7 @@ function IssueForm(props){
         }))
     }
 
+    
     function handleSubmit(event){
         event.preventDefault()
         addIssue(inputs)
