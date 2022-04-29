@@ -1,11 +1,28 @@
-import React, {useContext, useEffect} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {Link} from "react-router-dom"
 import { UserContext } from "../context/UserContext";
-import Issue from "./Issue";
+import axios from "axios";
+
+const userAxios = axios.create()
+
+userAxios.interceptors.request.use(config => {
+    const token = localStorage.getItem('token')
+    config.headers.Authorization = `Bearer ${token}`
+    return config
+})
 
 
 function Public(){
-    const { token, getAllIssues, allIssues } = useContext(UserContext)
+    const { token } = useContext(UserContext)
+    const [allIssues, setAllIssues] = useState([])
+
+    function getAllIssues(){
+        userAxios.get('api/issues')
+            .then(response => {
+                setAllIssues(response.data)
+            })
+            .catch(error => console.log(error))
+    }
     
     useEffect(() => {
         getAllIssues()
@@ -19,10 +36,15 @@ function Public(){
                     <button>Profile</button>
                 </Link>
             }
-            {allIssues && allIssues.map(issues => {
+            {allIssues.map((issue, index) => {
                 return(
-                    <div key={issues._id} id={issues._id}>
-                        <Issue {...issues} />
+                    <div key={issue._id} id={issue._id}>
+                        <h1>{issue.title}</h1>
+                        <h2>{issue.description}</h2>
+                        <h6>Up Vote: {issue.upvote} Down Vote: {issue.downvote}</h6>
+                        <button>Up Vote</button>
+                        <button>Down Vote</button>
+                        <button>Comment</button>
                     </div>
                 )
             })}

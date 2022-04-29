@@ -1,6 +1,7 @@
 const express = require('express')
 const issueRouter = express.Router()
 const Issue = require('../models/issue')
+const Vote = require('../models/vote')
 
 
 issueRouter.get('/', (req, res, next) => {
@@ -9,7 +10,20 @@ issueRouter.get('/', (req, res, next) => {
             res.status(500)
             return next(error)
         }
-        return res.send(issues)
+        return Promise.all(
+            issues.map((issue) => {
+                return Vote.find({issue: issue._id}, ((error, votes) => {
+                    if (error){
+                        res.status(500)
+                        return next(error)
+                    }
+                    issue.upvoteCount = votes.filter((vote) => vote.type === 'upvote').length
+                    issue.downvoteCount = votes.filter((vote) => vote.type === 'downvote').length
+                })).clone()
+            })
+        ).then(() => {
+            res.send(issues)
+        })
     })
 })
 // '/api/issues/:issueId?user=!EQuserId'
