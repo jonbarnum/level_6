@@ -15,6 +15,9 @@ userAxios.interceptors.request.use(config => {
 function Public(){
     const { token } = useContext(UserContext)
     const [allIssues, setAllIssues] = useState([])
+    const [editText, setEditText] = useState({
+        comment: '',
+    })
 
     function getAllIssues(){
         userAxios.get('api/issues')
@@ -24,6 +27,43 @@ function Public(){
             .catch(error => console.log(error))
     }
     
+    function handleEdit(index, id){
+        let savedIssue = allIssues.find((issue) => issue._id === id)
+        savedIssue.editActive = !savedIssue.editActive
+        
+        setAllIssues(prevState => ([
+            ...prevState.slice(0, index),
+            savedIssue,
+            ...prevState.slice(index + 1),
+        ]))
+    }
+
+    function handleTextEdit(event){
+        event.preventDefault()
+        const {name, value} = event.target
+        setEditText(prevState => ({
+            ...prevState,
+            [name]: value
+        }))
+    }
+
+
+    function handleEditSubmit(event, issue){
+        event.preventDefault()
+        userAxios.post(`/api/comments`,
+            {
+                comment: editText.comment ? editText.comment : issue.comment
+            }
+        )
+        .then(response => {
+            getAllIssues()
+        })
+        .catch(error => console.log(error))
+        setEditText({
+            comment: '',
+        })
+    }
+
     useEffect(() => {
         getAllIssues()
     }, [])
@@ -44,7 +84,19 @@ function Public(){
                         <h6>Up Vote: {issue.upvote} Down Vote: {issue.downvote}</h6>
                         <button>Up Vote</button>
                         <button>Down Vote</button>
-                        <button>Comment</button>
+                        <button onClick={() => handleEdit(index, issue._id)}>Add Comment</button>
+                        {issue.editActive ? (
+                            <form onSubmit={(event) => handleEditSubmit(event, issue)}>
+                                <input 
+                                    type='text'
+                                    value={editText.comment}
+                                    name='comment'
+                                    onChange={handleTextEdit}
+                                    placeholder="Comment"
+                                />
+                                <button>Submit</button>
+                            </form>
+                        ): null}
                     </div>
                 )
             })}

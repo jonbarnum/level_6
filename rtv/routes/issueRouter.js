@@ -26,15 +26,7 @@ issueRouter.get('/', (req, res, next) => {
         })
     })
 })
-// '/api/issues/:issueId?user=!EQuserId'
-// {
-//     filter: {
-//         user: {
-//             qualifier: 'equals'
-//             term: 'theid'
-//         }
-//     }
-// }
+
 issueRouter.get('/:user', (req, res, next) => {
     Issue.find({user: req.user._id}, (error, issues) => {
         if (error){
@@ -56,21 +48,6 @@ issueRouter.post('/', (req, res, next) => {
         return res.status(200).send(newIssue)
     })
 })
-
-// issueRouter.get('/:issueId', (req, res, next) => {
-//     Issue.findById(
-//         {_id: req.params.issueId}, 
-//         (error, issue) => {
-//         if (error){
-//             res.status(500)
-//             return next(error)
-//         } else if (!issue){
-//             res.status(404)
-//             return next(new Error('No political issue found'))
-//         }
-//         return res.send(issue)
-//     })
-// })
 
 issueRouter.put('/:issueId', (req, res, next) => {
     Issue.findOneAndUpdate(

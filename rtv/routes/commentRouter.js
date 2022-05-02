@@ -36,8 +36,6 @@ commentRouter.post('/', (req, res, next) => {
 
 commentRouter.get('/:commentId', (req, res, next) => {
     Comment.findById(req.params.commentId, (error, comment) => {
-        //find by issue id
-        //recursively get all comments. first git list, then loop through all issues and get comments added to it 
         if (error) {
             res.status(500)
             return next(error)
