@@ -5,11 +5,7 @@ const Vote = require('../models/vote')
 
 
 issueRouter.get('/', (req, res, next) => {
-    Issue.find((error, issues) => {
-        if (error){
-            res.status(500)
-            return next(error)
-        }
+    Issue.find().populate('comments').then((issues) => {
         return Promise.all(
             issues.map((issue) => {
                 return Vote.find({issue: issue._id}, ((error, votes) => {
@@ -24,16 +20,35 @@ issueRouter.get('/', (req, res, next) => {
         ).then(() => {
             res.send(issues)
         })
-    })
-})
-
-issueRouter.get('/:user', (req, res, next) => {
-    Issue.find({user: req.user._id}, (error, issues) => {
+    }).catch((error) => {
         if (error){
             res.status(500)
             return next(error)
         }
-        return res.status(200).send(issues)
+    })
+})
+
+issueRouter.get('/:user', (req, res, next) => {
+    Issue.find({user: req.user._id}).populate('comments').then((issues) => {
+        return Promise.all(
+            issues.map((issue) => {
+                return Vote.find({issue: issue._id}, ((error, votes) => {
+                    if (error){
+                        res.status(500)
+                        return next(error)
+                    }
+                    issue.upvoteCount = votes.filter((vote) => vote.type === 'upvote').length
+                    issue.downvoteCount = votes.filter((vote) => vote.type === 'downvote').length
+                })).clone()
+            })
+        ).then(() => {
+            res.send(issues)
+        })
+    }).catch((error) => {
+        if (error){
+            res.status(500)
+            return next(error)
+        }
     })
 })
 
@@ -53,7 +68,7 @@ issueRouter.put('/:issueId', (req, res, next) => {
     Issue.findOneAndUpdate(
         {_id: req.params.issueId, user: req.user._id},
         req.body,
-        {new: true},
+        {new: true, overwrite: true},
         (error, updatedIssue) => {
             if (error){
                 console.log(error)

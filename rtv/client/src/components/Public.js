@@ -64,6 +64,16 @@ function Public(){
         })
     }
 
+    function handleUpvote(event){
+        event.preventDefault()
+        console.log('upvote')
+    }
+
+    function handleDownvote(event){
+        event.preventDefault()
+        console.log('downvote')
+    }
+
     useEffect(() => {
         getAllIssues()
     }, [])
@@ -81,9 +91,6 @@ function Public(){
                     <div key={issue._id} id={issue._id}>
                         <h1>{issue.title}</h1>
                         <h2>{issue.description}</h2>
-                        <h6>Up Vote: {issue.upvote} Down Vote: {issue.downvote}</h6>
-                        <button>Up Vote</button>
-                        <button>Down Vote</button>
                         <button onClick={() => handleEdit(index, issue._id)}>Add Comment</button>
                         {issue.editActive ? (
                             <form onSubmit={(event) => handleEditSubmit(event, issue)}>
@@ -97,6 +104,9 @@ function Public(){
                                 <button>Submit</button>
                             </form>
                         ): null}
+                        <h6>Up Vote: {issue.upvote} Down Vote: {issue.downvote}</h6>
+                        <button onClick={handleUpvote}>Up Vote</button>
+                        <button onClick={handleDownvote}>Down Vote</button>
                     </div>
                 )
             })}

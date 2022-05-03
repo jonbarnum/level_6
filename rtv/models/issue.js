@@ -24,9 +24,11 @@ const issueSchema = new Schema({
         required: true
     },
     comments: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Comment',
-        immutable: true
+        commentId: {
+            type: Schema.Types.ObjectId,
+            ref: 'Comment',
+            immutable: true
+        }
     }]
 })
 
