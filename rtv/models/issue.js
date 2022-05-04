@@ -23,13 +23,16 @@ const issueSchema = new Schema({
         ref: "User",
         required: true
     },
-    comments: [{
-        commentId: {
-            type: Schema.Types.ObjectId,
-            ref: 'Comment',
-            immutable: true
-        }
-    }]
+    // comments: [{
+    //     comment: {
+    //         type: String,
+    //         immutable: true
+    //     }
+    // }]
+    comments: {
+        type: Array,
+        required: true
+    }
 })
 
 module.exports = mongoose.model('Issue', issueSchema)

@@ -50,15 +50,33 @@ function Public(){
 
     function handleEditSubmit(event, issue){
         event.preventDefault()
+        const issueId = event.currentTarget.parentElement.id;
+        const comment = editText.comment ? editText.comment : issue.comment;
         userAxios.post(`/api/comments`,
             {
-                comment: editText.comment ? editText.comment : issue.comment
+                comment,
+                issueId,
             }
         )
         .then(response => {
+            const updatedIssue = allIssues.find(issue => {
+                return issue._id === issueId}
+            );
+            updatedIssue.comments.push(comment);
+            userAxios.put(`/api/issues/${issueId}`,
+                {
+                    updatedIssue
+                }
+            ).then(res => {
+                console.log(res);
+            }).catch(err => {
+                console.log(err.message);
+            })
             getAllIssues()
         })
-        .catch(error => console.log(error))
+        .catch(error => {
+            console.log(error.message)
+        })
         setEditText({
             comment: '',
         })

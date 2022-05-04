@@ -9,6 +9,11 @@ const commentSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "User",
         required: true
+    },
+    issueId: {
+        type: Schema.Types.ObjectId,
+        ref: "Issue",
+        required: true
     }
 })
 
