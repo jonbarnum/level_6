@@ -12,6 +12,19 @@ commentRouter.get('/', (req, res, next) => {
     }) 
 })
 
+commentRouter.get("/:issueId", (req, res, next) => {
+    Comment.find(
+        { issueId: req.params.issueId },
+        (err, comments) => {
+            if (err) {
+                res.status(500)
+                return next(err)
+            }
+            res.status(200).send(comments)
+        }
+    )
+})
+
 commentRouter.get('/user', (req, res, next) => {
     Comment.find({user: req.user._id}, (error, comment) => {
         if (error){

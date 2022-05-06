@@ -21,6 +21,7 @@ function IssueList(){
     function getAllIssues(){
         userAxios.get('api/issues/user')
             .then(response => {
+                response.data.sort((a, b) => a - b)
                 setAllIssues(response.data)
             })
             .catch(error => console.log(error))

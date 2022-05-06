@@ -2,7 +2,8 @@ import React, { useState } from "react";
 
 const initialInputs = {
     title: "",
-    description: ''
+    description: '',
+    userThatVoted: [],
 }
 
 function IssueForm(props){

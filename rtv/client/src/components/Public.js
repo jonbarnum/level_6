@@ -13,11 +13,12 @@ userAxios.interceptors.request.use(config => {
 
 
 function Public(){
-    const { token } = useContext(UserContext)
+    const { token, user } = useContext(UserContext)
     const [allIssues, setAllIssues] = useState([])
     const [editText, setEditText] = useState({
         comment: '',
     })
+    const [comments, setComments] = useState([])
 
     function getAllIssues(){
         userAxios.get('api/issues')
@@ -47,6 +48,13 @@ function Public(){
         }))
     }
 
+    function getIssueComments(){
+        userAxios.get(`/api/comments/`)
+        .then(res => {
+            setComments(res.data)
+        })
+        .catch(err => console.log(err))
+    }
 
     function handleEditSubmit(event, issue){
         event.preventDefault()
@@ -58,22 +66,24 @@ function Public(){
                 issueId,
             }
         )
-        .then(response => {
-            const updatedIssue = allIssues.find(issue => {
-                return issue._id === issueId}
-            );
-            updatedIssue.comments.push(comment);
-            userAxios.put(`/api/issues/${issueId}`,
-                {
-                    updatedIssue
-                }
-            ).then(res => {
-                console.log(res);
-            }).catch(err => {
-                console.log(err.message);
-            })
-            getAllIssues()
-        })
+        .then(res => setComments(prevComments => [...prevComments, res.data]))
+        // .then(response => {
+        //     const updatedIssue = allIssues.find(issue => {
+        //         return issue._id === issueId}
+        //         );
+        //     updatedIssue.comments.push(comment);
+        //     userAxios.put(`/api/issues/${issueId}`,
+        //     {
+        //         updatedIssue
+        //     }
+        //     ).then(res => {
+        //         console.log(res);
+        //     }).catch(err => {
+        //         console.log(err.message);
+        //     })
+        //     getAllIssues()
+        // })
+        .then(getIssueComments())
         .catch(error => {
             console.log(error.message)
         })
@@ -82,18 +92,37 @@ function Public(){
         })
     }
 
+    function updateIssue(issueId, issue){
+        userAxios.put(`api/issues/${issueId}`, issue)
+            .then(
+                getAllIssues()
+            )
+            .catch(err => {
+                console.log(err)
+            })
+    }
+
     function handleUpvote(event){
         event.preventDefault()
-        console.log('upvote')
+        const issueId = event.currentTarget.parentElement.parentElement.id;
+        const issue = allIssues.find((issue) => issue._id === issueId)
+        issue.usersThatVoted.push(user._id)
+        issue.upvote = issue.upvote + 1
+        updateIssue(issueId, issue)
     }
 
     function handleDownvote(event){
         event.preventDefault()
-        console.log('downvote')
+        const issueId = event.currentTarget.parentElement.parentElement.id;
+        const issue = allIssues.find((issue) => issue._id === issueId)
+        issue.usersThatVoted.push(user._id)
+        issue.downvote = issue.downvote + 1
+        updateIssue(issueId, issue)
     }
 
     useEffect(() => {
         getAllIssues()
+        getIssueComments()
     }, [])
 
     return(
@@ -109,6 +138,35 @@ function Public(){
                     <div key={issue._id} id={issue._id}>
                         <h1>{issue.title}</h1>
                         <h2>{issue.description}</h2>
+                        <ul>
+                            {
+                                comments ?
+                                    comments.map(comment => {
+                                        if(comment.issueId === issue._id) {
+                                            return(
+                                                <div key={comment._id} id={comment._id}>
+                                                    <h4>{comment.comment}</h4>
+                                                </div>
+                                            )
+                                        } 
+                                        return '';
+                                    })
+                                : null
+                            }
+                        </ul>
+                        {/* <ul>
+                            {
+                                comments ?
+                                    comments.filter().map(comment => {
+                                        return(
+                                            <div key={comment._id} id={comment._id}>
+                                                <h4>{comment.comment}</h4>
+                                            </div>
+                                        )
+                                    })
+                                : null
+                            }
+                        </ul> */}
                         <button onClick={() => handleEdit(index, issue._id)}>Add Comment</button>
                         {issue.editActive ? (
                             <form onSubmit={(event) => handleEditSubmit(event, issue)}>
@@ -123,8 +181,12 @@ function Public(){
                             </form>
                         ): null}
                         <h6>Up Vote: {issue.upvote} Down Vote: {issue.downvote}</h6>
-                        <button onClick={handleUpvote}>Up Vote</button>
-                        <button onClick={handleDownvote}>Down Vote</button>
+                        {!issue.usersThatVoted?.find(userId => userId === user._id) &&
+                            <div>
+                                <button onClick={handleUpvote}>Up Vote</button>
+                                <button onClick={handleDownvote}>Down Vote</button>
+                            </div>
+                        }
                     </div>
                 )
             })}

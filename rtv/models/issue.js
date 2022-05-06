@@ -23,15 +23,12 @@ const issueSchema = new Schema({
         ref: "User",
         required: true
     },
-    // comments: [{
-    //     comment: {
-    //         type: String,
-    //         immutable: true
-    //     }
-    // }]
+
     comments: {
-        type: Array,
-        required: true
+        type: Array
+    },
+    usersThatVoted: {
+        type: Array
     }
 })
 

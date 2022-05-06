@@ -71,6 +71,7 @@ issueRouter.put('/:issueId/addComment', (req, res, next) => {
     Issue.findOneAndUpdate(
         {_id: req.params.issueId, user: req.user._id},
         Issue.comments.push(req.body),
+        {new: true},
         (error, updatedIssue) => {
             if (error){
                 console.log(error)
