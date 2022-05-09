@@ -84,13 +84,6 @@ function Public(){
         } catch(err) {
             console.log(err);
         }
-        // userAxios.put(`api/issues/${issueId}`, issue)
-        //     .then(
-        //         getAllIssues()
-        //     )
-        //     .catch(err => {
-        //         console.log(err)
-        //     })
     }
 
     function handleUpvote(event){
