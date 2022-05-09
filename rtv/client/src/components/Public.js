@@ -23,6 +23,7 @@ function Public(){
     function getAllIssues(){
         userAxios.get('api/issues')
             .then(response => {
+                response.data.sort((a, b) => b.upvote - a.upvote)
                 setAllIssues(response.data)
             })
             .catch(error => console.log(error))
@@ -67,22 +68,6 @@ function Public(){
             }
         )
         .then(res => setComments(prevComments => [...prevComments, res.data]))
-        // .then(response => {
-        //     const updatedIssue = allIssues.find(issue => {
-        //         return issue._id === issueId}
-        //         );
-        //     updatedIssue.comments.push(comment);
-        //     userAxios.put(`/api/issues/${issueId}`,
-        //     {
-        //         updatedIssue
-        //     }
-        //     ).then(res => {
-        //         console.log(res);
-        //     }).catch(err => {
-        //         console.log(err.message);
-        //     })
-        //     getAllIssues()
-        // })
         .then(getIssueComments())
         .catch(error => {
             console.log(error.message)
@@ -92,14 +77,20 @@ function Public(){
         })
     }
 
-    function updateIssue(issueId, issue){
-        userAxios.put(`api/issues/${issueId}`, issue)
-            .then(
-                getAllIssues()
-            )
-            .catch(err => {
-                console.log(err)
-            })
+    async function updateIssue(issueId, issue){
+        try {
+            await userAxios.put(`api/issues/${issueId}`, issue);
+            getAllIssues();
+        } catch(err) {
+            console.log(err);
+        }
+        // userAxios.put(`api/issues/${issueId}`, issue)
+        //     .then(
+        //         getAllIssues()
+        //     )
+        //     .catch(err => {
+        //         console.log(err)
+        //     })
     }
 
     function handleUpvote(event){
@@ -154,19 +145,6 @@ function Public(){
                                 : null
                             }
                         </ul>
-                        {/* <ul>
-                            {
-                                comments ?
-                                    comments.filter().map(comment => {
-                                        return(
-                                            <div key={comment._id} id={comment._id}>
-                                                <h4>{comment.comment}</h4>
-                                            </div>
-                                        )
-                                    })
-                                : null
-                            }
-                        </ul> */}
                         <button onClick={() => handleEdit(index, issue._id)}>Add Comment</button>
                         {issue.editActive ? (
                             <form onSubmit={(event) => handleEditSubmit(event, issue)}>

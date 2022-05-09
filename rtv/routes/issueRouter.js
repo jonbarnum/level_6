@@ -64,28 +64,28 @@ issueRouter.post('/', (req, res, next) => {
     })
 })
 
-issueRouter.put('/:issueId/addComment', (req, res, next) => {
-    //find specific issue
-    //push comment from req.body into issue.comments
-    //run below function updating with the updated issue
-    Issue.findOneAndUpdate(
-        {_id: req.params.issueId, user: req.user._id},
-        Issue.comments.push(req.body),
-        {new: true},
-        (error, updatedIssue) => {
-            if (error){
-                console.log(error)
-                res.status(500)
-                return next(error)
-            }
-            return res.send(updatedIssue)
-        }
-    )
-})
+// issueRouter.put('/:issueId/addComment', (req, res, next) => {
+//     //find specific issue
+//     //push comment from req.body into issue.comments
+//     //run below function updating with the updated issue
+//     Issue.findOneAndUpdate(
+//         {_id: req.params.issueId, user: req.user._id},
+//         Issue.comments.push(req.body),
+//         {new: true},
+//         (error, updatedIssue) => {
+//             if (error){
+//                 console.log(error)
+//                 res.status(500)
+//                 return next(error)
+//             }
+//             return res.send(updatedIssue)
+//         }
+//     )
+// })
 
 issueRouter.put('/:issueId', (req, res, next) => {
     Issue.findOneAndUpdate(
-        {_id: req.params.issueId, user: req.user._id},
+        {_id: req.params.issueId},
         req.body,
         {new: true},
         (error, updatedIssue) => {
