@@ -33,8 +33,8 @@ function Auth(){
         }
 
     return(
-        <div>
-            <h1>RTV</h1>
+        <div className="mainPageLogIn">
+            <h1 className="headerTitle">RTV</h1>
             { !toggle ?
                 <React.Fragment>
                     <AuthForm 

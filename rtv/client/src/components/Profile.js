@@ -14,7 +14,7 @@ function Profile(){
     } = useContext(UserContext)
 
     return(
-        <div>
+        <div className="profileFormDiv">
             <h1>Welcome {username}</h1>
             <Header logout={logout} />
             <h3>Add an Issue</h3>

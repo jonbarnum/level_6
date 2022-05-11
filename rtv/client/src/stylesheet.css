@@ -1,0 +1,39 @@
+.mainPageLogIn{
+    border: 5px solid gray;
+    background-color: rgb(196, 196, 196);
+    text-align: center;
+    height: 500px;
+}
+
+.footer{
+    border: 5px solid gray;
+    background-color: rgb(196, 196, 196);
+    text-align: center;
+    height: 150px;
+}
+
+.headerTitle{
+    margin-top: 100px;
+}
+
+.profileFormDiv{
+    border: 5px solid gray;
+    background-color: rgb(196, 196, 196);
+    text-align: center;
+}
+
+.publicDiv{
+    border: 5px solid gray;
+    background-color: rgb(196, 196, 196);
+    text-align: center;
+}
+
+.issue{
+    border: 5px solid gray;
+    background-color: rgb(196, 196, 196);
+}
+
+.publicIssue{
+    border: 5px solid gray;
+    background-color: rgb(196, 196, 196);
+}

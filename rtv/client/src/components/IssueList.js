@@ -80,7 +80,7 @@ function IssueList(){
     }, [])
 
     return(
-        <div>
+        <div className="issue">
             {allIssues.map((issue, index) => {
                 return (
                     <div key={issue._id} id={issue._id}>

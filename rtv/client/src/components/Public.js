@@ -110,7 +110,7 @@ function Public(){
     }, [])
 
     return(
-        <div>
+        <div className="publicDiv">
             <h1>Public Issues</h1>
             {token &&
                 <Link to='/profile'>
@@ -119,7 +119,7 @@ function Public(){
             }
             {allIssues.map((issue, index) => {
                 return(
-                    <div key={issue._id} id={issue._id}>
+                    <div key={issue._id} id={issue._id} className='publicIssue'>
                         <h1>{issue.title}</h1>
                         <h2>{issue.description}</h2>
                         <ul>
