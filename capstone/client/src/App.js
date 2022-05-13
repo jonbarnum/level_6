@@ -8,13 +8,17 @@ import { AppContext } from "./appContext";
 import Auth from "./components/Auth";
 import BandSearch from './components/BandSearch';
 import FavBands from "./components/FavBands";
-import TopTracks from './components/TopTracks'
+import TopTracks from './components/TopTracks';
+import Header from "./Header";
 
 function App(){
     const {token, user} = useContext(AppContext)
+    // let isProfile = window.location.href.includes("profile");
 
     return(
         <div>
+        {/* {isProfile && <UserName username={user} />} */}
+        {user && user.hasOwnProperty('_id') && <Header/>}
         <Routes>
             <Route 
                 path="/" 
@@ -28,13 +32,13 @@ function App(){
                 path="/profile"
                 element={<Profile/>}
             />
+                <Route path="/bandSearch" element={<BandSearch />} />
+                <Route path="/favBands" element={<FavBands />} />
+                <Route path="/topTracks" element={<TopTracks />} />
             <Route 
                 path="/public"
                 element={<Public/>}
             />
-            <Route path="/bandSearch" element={<BandSearch />} />
-            <Route path="/favBands" element={<FavBands />} />
-            <Route path="/topTracks" element={<TopTracks />} />
         </Routes>
         <Footer />
     </div>
@@ -42,3 +46,10 @@ function App(){
 }
 
 export default App
+
+// function UserName(user){
+//     const {username} = user
+//     return(
+//         <h1>Welcome {username}</h1>
+//     )
+// }

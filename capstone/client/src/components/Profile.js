@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { AppContext } from "../appContext";
-import Header from "../Header";
+// import Header from "../Header";
 
 
 function Profile(){
@@ -8,13 +8,13 @@ function Profile(){
         user: {
             username
         },
-        logout
+        // logout
     } = useContext(AppContext)
 
     return(
         <div className="profileFormDiv">
             <h1>Welcome {username}</h1>
-            <Header logout={logout} />
+            {/* <Header logout={logout} /> */}
         </div>
     )
 }

@@ -7,6 +7,11 @@ function Header(){
 
     return(
         <div className="headerDiv">
+            <Link to='/profile'>
+                <button>
+                    Profile
+                </button>
+            </Link>
             <Link to='/public'>
                 <button>
                     Public
