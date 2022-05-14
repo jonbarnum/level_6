@@ -10,7 +10,7 @@ const commentSchema = new Schema({
         ref: "User",
         required: true
     },
-    issueId: {
+    bandId: {
         type: Schema.Types.ObjectId,
         ref: "Issue",
         required: true

@@ -28,7 +28,7 @@ function AppContextProvider(props){
     let navigate = useNavigate()
 
     function signup(credentials){
-        axios.post('/auth/signup', credentials)
+        userAxios.post('/auth/signup', credentials)
         .then(response => {
             const {user, token} = response.data
             localStorage.setItem("token", token)
@@ -43,7 +43,7 @@ function AppContextProvider(props){
     }
 
     function login(credentials){
-        axios.post('/auth/login', credentials)
+        userAxios.post('/auth/login', credentials)
         .then(response => {
             const {user, token} = response.data
             localStorage.setItem("token", token)
@@ -126,7 +126,7 @@ function AppContextProvider(props){
 
     function handleSearch(event){
         event.preventDefault()
-        axios.get(`http://ws.audioscrobbler.com/2.0/?method=artist.search&artist=${inputData.artist}&api_key=cb41d576aa71567c76b75feab99d7dcd&format=json&limit=10`)
+        userAxios.get(`http://ws.audioscrobbler.com/2.0/?method=artist.search&artist=${inputData.artist}&api_key=cb41d576aa71567c76b75feab99d7dcd&format=json&limit=10`)
         .then(response => {
             setBandInfo(response.data.results.artistmatches.artist)
         })

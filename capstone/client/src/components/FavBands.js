@@ -2,6 +2,14 @@ import axios from "axios";
 import React, { useState, useContext, useEffect } from "react";
 import { AppContext } from "../appContext";
 
+const userAxios = axios.create()
+
+userAxios.interceptors.request.use(config => {
+    const token = localStorage.getItem('token')
+    config.headers.Authorization = `Bearer ${token}`
+    return config
+})
+
 
 function BandEditForm(band){
     const {bands, getBands} = useContext(AppContext)
@@ -21,7 +29,7 @@ function BandEditForm(band){
     function handleEditBand(event){
         event.preventDefault()
         let bandId = bands[event.target.parentElement.parentElement.id]
-        axios.put(`http://localhost:7500/bands/${bandId._id}`, 
+        userAxios.put(`api/bands/${bandId._id}`, 
             {
                 genre: editInputData.genre ? editInputData.genre : band.genre, 
                 img: editInputData.img ? editInputData.img : band.img
@@ -41,7 +49,7 @@ function BandEditForm(band){
     function handleDeleteBand(event){
         event.preventDefault()
         let bandId = bands[event.target.parentElement.parentElement.parentElement.id]
-        axios.delete(`http://localhost:7500/bands/${bandId._id}`)
+        userAxios.delete(`api/bands/${bandId._id}`)
         .then(() => {
             getBands()
         })

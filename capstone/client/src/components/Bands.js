@@ -2,13 +2,21 @@ import React, { useContext } from "react";
 import { AppContext } from "../appContext";
 import axios from "axios";
 
+const userAxios = axios.create()
+
+userAxios.interceptors.request.use(config => {
+    const token = localStorage.getItem('token')
+    config.headers.Authorization = `Bearer ${token}`
+    return config
+})
+
 function Bands(){
     const {bandInfo} = useContext(AppContext)
 
     function addBand(event){
         event.preventDefault()
         let newBand = bandInfo[event.target.parentElement.id]
-        axios.post("http://localhost:7500/bands/", 
+        userAxios.post("api/bands/", 
             {
                 name: newBand.name, 
                 url: newBand.url, 

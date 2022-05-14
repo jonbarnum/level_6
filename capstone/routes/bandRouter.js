@@ -100,6 +100,7 @@ bandRouter.get('/:user', (req, res, next) => {
 
 bandRouter.post('/', (req, res, next) => {
     req.body.user = req.user._id
+    // req.auth = req.auth._id
     const band = new Band(req.body)
     band.save(function (error, newBand) {
         if (error){

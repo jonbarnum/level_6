@@ -77,9 +77,9 @@ function Public(){
         })
     }
 
-    async function updateIssue(bandId, band){
+    async function updateBand(bandId, band){
         try {
-            await userAxios.put(`api/issues/${bandId}`, band);
+            await userAxios.put(`api/bands/${bandId}`, band);
             getAllBands();
         } catch(err) {
             console.log(err);
@@ -92,7 +92,7 @@ function Public(){
         const band = bands.find((band) => band._id === bandId)
         band.usersThatVoted.push(user._id)
         band.upvote = band.upvote + 1
-        updateIssue(bandId, band)
+        updateBand(bandId, band)
     }
 
     function handleDownvote(event){
@@ -101,7 +101,7 @@ function Public(){
         const band = bands.find((band) => band._id === bandId)
         band.usersThatVoted.push(user._id)
         band.downvote = band.downvote + 1
-        updateIssue(bandId, band)
+        updateBand(bandId, band)
     }
 
     useEffect(() => {
@@ -111,7 +111,7 @@ function Public(){
 
     return(
         <div className="publicDiv">
-            <h1>Public Issues</h1>
+            <h1>Other Bands People Have Liked</h1>
             {token &&
                 <Link to='/profile'>
                     <button>Profile</button>
