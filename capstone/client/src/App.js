@@ -10,6 +10,7 @@ import BandSearch from './components/BandSearch';
 import FavBands from "./components/FavBands";
 import TopTracks from './components/TopTracks';
 import Header from "./Header";
+import './stylesheet.css'
 
 function App(){
     const {token, user} = useContext(AppContext)

@@ -34,7 +34,7 @@ function Auth(){
 
     return(
         <div className="mainPageLogIn">
-            <h1 className="headerTitle">Bands For You</h1>
+            <h1 className="loginHeaderTitle">For Music Lovers</h1>
             { !toggle ?
                 <React.Fragment>
                     <AuthForm 

@@ -13,7 +13,7 @@ function Profile(){
 
     return(
         <div className="profileFormDiv">
-            <h1>Welcome {username}</h1>
+            <h1 className="profileWelcome">Welcome {username}</h1>
             {/* <Header logout={logout} /> */}
         </div>
     )

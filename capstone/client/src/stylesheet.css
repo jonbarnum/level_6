@@ -1,0 +1,155 @@
+body{
+    background: url('https://cdn.pixabay.com/photo/2018/01/15/21/50/concert-3084876__340.jpg') no-repeat center center fixed; 
+    background-size: cover;
+}
+
+.headerDiv{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.headerLink{
+    color: #04BF9D;
+    text-decoration: none;
+}
+
+.bandSearchDiv{
+    display: flex;
+    justify-content: center;
+}
+
+.bandSearchLabel{
+    font-size: 26px;
+}
+
+.bandSeachSelector{
+    width: 75px;
+    height: 32px;
+}
+
+.bandSearchInput{
+    width: 200px;
+    height: 26px;
+    font-size: 16px;
+}
+
+.searchButton{
+    height: 32px;
+}
+
+.bandsHeaderTitle{
+    text-align: center;
+    text-decoration: underline;
+}
+
+.bandListDiv{
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.bandNameDiv{
+    display: flex;
+    justify-content: center;
+}
+
+.bandName{
+    color: #3BF4FF;
+    text-decoration: none;
+    font-size: 25px;
+    text-align: center;
+}
+
+.bandListeners{
+    color: #3BF4FF;
+}
+
+.vertLineLeft{
+    border-left: 40px solid #FACFCE;
+    height: 100%;
+    position: relative;
+    left: 0%;
+}
+
+.vertLineRight{
+    border-right: 40px solid #FACFCE;
+    height: 100%;
+    position: relative;
+    right: 0%;
+}
+
+.favBandsHeader{
+    text-align: center;
+    text-decoration: underline;
+}
+
+.favBandDiv{
+    margin-bottom: 15px;
+}
+
+.favBandsDiv{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.favBandGenre{
+    color: #FACFCE;
+    text-align: center;
+}
+
+.favBandImage{
+    width: 350px;
+    height: 250px;
+}
+
+.editDiv{
+    display: flex;
+    justify-content: center;
+}
+
+.artist{
+    color: #FACFCE;
+    font-size: 20px;
+    text-align: center;
+}
+
+.topTrackHeader{
+    text-align: center;
+    text-decoration: underline;
+}
+
+.topTracksDiv{
+    display: flex;
+    justify-content: center;
+}
+
+.topTrackDiv{
+    text-align: center;
+}
+
+.footerQuote{
+    color: #F29E6D;
+    text-align: center;
+}
+
+.publicDiv{
+    text-align: center;
+}
+
+.publicHeader{
+    text-decoration: underline;
+}
+
+.publicBandName{
+    color: #3BF4FF;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.profileWelcome{
+    text-align: center;
+    color: #3BF4FF;
+}
+
+.mainPageLogIn{
+    text-align: center;
+}

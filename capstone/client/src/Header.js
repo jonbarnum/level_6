@@ -6,7 +6,7 @@ function Header(){
     const {token, logout} = useContext(AppContext)
 
     return(
-        <div className="headerDiv">
+        <div>
             <Link to='/profile'>
                 <button>
                     Profile
@@ -18,21 +18,23 @@ function Header(){
                 </button>
             </Link>
             { token && <button onClick={logout}>Logout</button>}
-            <h1 className="headerTitle">
-                <Link to='/BandSearch' className='headerLink'>
-                    Search for your favorite band
-                </Link> 
-            </h1>
-            <h1 className="headerTitle">
-                <Link to='/FavBands' className="headerLink">
-                    Your favorite bands
-                </Link>
-            </h1>
-            <h1 className="headerTitle">
-                <Link to='/TopTracks' className="headerLink">
-                    Top Tracks
-                </Link>
-            </h1>
+            <div className="headerDiv">
+                <h1 className="headerTitle">
+                    <Link to='/BandSearch' className='headerLink'>
+                        Search for your favorite band
+                    </Link> 
+                </h1>
+                <h1 className="headerTitle">
+                    <Link to='/FavBands' className="headerLink">
+                        Your favorite bands
+                    </Link>
+                </h1>
+                <h1 className="headerTitle">
+                    <Link to='/TopTracks' className="headerLink">
+                        Top Tracks
+                    </Link>
+                </h1>
+            </div>
     </div>
     )
 }

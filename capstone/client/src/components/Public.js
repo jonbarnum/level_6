@@ -111,15 +111,15 @@ function Public(){
 
     return(
         <div className="publicDiv">
-            <h1>Other Bands People Have Liked</h1>
-            {token &&
+            <h1 className="publicHeader">Other Bands People Have Liked</h1>
+            {/* {token &&
                 <Link to='/profile'>
                     <button>Profile</button>
                 </Link>
-            }
+            } */}
             {bands.map((band, index) => {
                 return(
-                    <div key={band._id} id={band._id} className='publicIssue'>
+                    <div key={band._id} id={band._id} className='publicBandName'>
                         <h1>{band.name}</h1>
                         <h2>{band.genre}</h2>
                         <ul>
