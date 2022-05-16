@@ -39,7 +39,7 @@ function AppContextProvider(props){
                 token
             }))
         })
-        .catch(error => handleAuthErr(error.response.data.errMsg))
+        .catch(err => handleAuthErr(err.response.data.message))
     }
 
     function login(credentials){
@@ -48,15 +48,13 @@ function AppContextProvider(props){
             const {user, token} = response.data
             localStorage.setItem("token", token)
             localStorage.setItem("user", JSON.stringify(user))
-            const issues = getUserBands()
             setUserState(prevUserState => ({
                 ...prevUserState,
                 user,
                 token,
-                issues
             }))
         })
-        .catch(error => handleAuthErr(error.response.data.errMsg))
+        .catch(err => handleAuthErr(err.response.data.message))
     }
 
     function logout(){
@@ -155,7 +153,7 @@ function AppContextProvider(props){
                 addBand,
                 resetAuthErr,
                 getUserBands,
-                setUserState
+                setUserState,
             }}
         >
             {props.children}
