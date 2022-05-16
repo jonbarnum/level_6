@@ -67,6 +67,7 @@ function AppContextProvider(props){
             token: "",
             comments: []
         })
+        setBandInfo([])
         navigate('/')
     }
 
@@ -99,6 +100,7 @@ function AppContextProvider(props){
                 ...prevState,
                 bands: response.data
             }))
+            setBands(response.data)
         })
         .catch(error => console.log(error.response.data.errMsg))
     }

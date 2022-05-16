@@ -85,10 +85,10 @@ function BandEditForm(band){
 }
 
 function FavBands(){
-    const {bands, getBands} = useContext(AppContext)
+    const {bands, getBands, getUserBands} = useContext(AppContext)
 
     useEffect(() => {
-        getBands()
+        getUserBands()
     }, [])
 
     return(

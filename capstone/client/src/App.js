@@ -13,11 +13,9 @@ import Header from "./Header";
 
 function App(){
     const {token, user} = useContext(AppContext)
-    // let isProfile = window.location.href.includes("profile");
 
     return(
         <div>
-        {/* {isProfile && <UserName username={user} />} */}
         {user && user.hasOwnProperty('_id') && <Header/>}
         <Routes>
             <Route 
@@ -46,10 +44,3 @@ function App(){
 }
 
 export default App
-
-// function UserName(user){
-//     const {username} = user
-//     return(
-//         <h1>Welcome {username}</h1>
-//     )
-// }
